@@ -1,0 +1,26 @@
+{
+  "name": "flowers-website",
+  "version": "1.0.0",
+  "description": "![image](https://user-images.githubusercontent.com/57400419/149516566-3ceaa67b-7a47-40de-9796-7b66d4643b8b.png)",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielGrunberger/Flowers-Website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielGrunberger/Flowers-Website/issues"
+  },
+  "homepage": "https://github.com/DanielGrunberger/Flowers-Website#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "connect": "^3.7.0",
+    "express": "^4.17.2",
+    "nocache": "^3.0.1"
+  }
+}
