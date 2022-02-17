@@ -8,8 +8,17 @@ $(document).ready(function(){
     $('#aboutBtn').click(function(){
       $('#main-content').load('/about')
     });
-    $('#optionsBtn').click(function(){
-        $('optionsDiv').load('/options')
+    $('#dropdown').click(function(){
+        sendLoadReq('#optionsDiv', '/options');
+    }); 
+    $('#usersManagementBtn').click(function(){
+        fetch('users-management?name=' +  currentUser).then(res => {
+                return res.json();
+            }).then(data => {
+                console.log(data);
+            }).catch(err => {
+                console.log(err);
+            })
       });
 
       const myForm = document.getElementById('loginForm');
@@ -64,7 +73,13 @@ $(document).ready(function(){
        fetch('/' + url + '?' + new URLSearchParams({
          name: currentUser,
       }));
+    }
+
+      function sendLoadReq(elementId, url) {
+        url = url + '?name=' +  currentUser; 
+        $(elementId).load(url);
       }
+      
   });
 
 

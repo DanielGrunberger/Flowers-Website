@@ -22,7 +22,7 @@ function getUserRole(username) {
     if (result.length != 1) {
         return ""
     }
-    return result[1].position
+    return result[0].position
 }
 
 function checkCreds(username, password) {
@@ -68,9 +68,21 @@ app.get('/contact',function(req,res){
 app.get('/about',function(req,res){
     res.sendFile(__dirname + '/public/about.html');
 });
-
+app.get('/users-management',function(req,res){
+    currentUser = req.query.name;
+    role = getUserRole(currentUser);
+    if(role == workerPosition){
+        res.sendFile(__dirname + '/public/users-management-worker.html');
+        return;
+    }
+    else if (role == managerPosition) {
+        res.sendFile(__dirname + '/public/users-management-manager.html');
+        return;
+    }
+});
 app.get('/options',function(req,res){
-    role = getUserRole;
+    currentUser = req.query.name;
+    role = getUserRole(currentUser);
     if(role == workerPosition || role == managerPosition) {
      res.sendFile(__dirname + '/public/authenticated-options.html');
      return;
