@@ -1,5 +1,6 @@
 const path = require('path');
-var db = require('./database.json')
+var usersDb = require('./users.json')
+var flowersDb = require('./flowers.json')
 
 var express = require('express');
 var app = express();
@@ -19,7 +20,7 @@ app.use(bodyParser.json());
 var LoggedIn  = false;
 
 function checkCreds(username, password) {
-        let result = db.filter(obj => {
+        let result = usersDb.filter(obj => {
             return obj.username === username && obj.password == password
         })
         if (result.length != 1) {
@@ -31,7 +32,6 @@ function checkCreds(username, password) {
 
 app.get('/',function(req,res){
     currentUser = req.query.name;
-    console.log(currentUser)
     if (currentUser != "") {
         console.log('logged in');
     }
@@ -44,11 +44,23 @@ app.get('/',function(req,res){
 app.get('/home',function(req,res){
     currentUser = req.query.name;
     if (currentUser != "") {
-        res.sendFile('index.html');
+        res.sendFile(__dirname + '/public/index.html');
     }
     else {
         console.log("Non-authenticated")
     }
+});
+
+app.get('/catalog',function(req,res){
+    res.sendFile(__dirname + '/public/catalog.html');
+});
+
+app.get('/contact',function(req,res){
+    res.sendFile(__dirname + '/public/contact.html');
+});
+
+app.get('/about',function(req,res){
+    res.sendFile(__dirname + '/public/about.html');
 });
 
 
