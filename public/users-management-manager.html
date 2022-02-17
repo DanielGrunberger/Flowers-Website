@@ -1,0 +1,49 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+
+<script>
+
+    $(function() {
+
+
+   var people = [];
+
+   $.getJSON('users.json', function(data) {
+       console.log(data);
+       $.each(data, function(i, f) {
+          var tblRow = "<tr>" + "<td>" + f.username + "</td>" +
+           "<td>" + f.password + "</td>" + "<td>" + f.name + "</td>" +  "<td>" + f.lastname + "</td>" + "<td>" + f.position + "</td>"   + "<td>"+ "</td>" + "</tr>"
+           $(tblRow).appendTo("#userdata tbody");
+          
+     });
+
+   });
+
+});
+</script>
+</head>
+
+<body>
+  <div id="center">
+       <table id= "userdata" border="6">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Pasword</th>
+          <th>Name</th>
+          <th>LastName</th>
+          <th>Position</th>
+    
+        </tr>
+            </thead>
+          <tbody>
+    
+           </tbody>
+       </table>
+    
+   
+    </div>
+    
+    </body>
+</html>

@@ -1,5 +1,5 @@
 const path = require('path');
-var usersDb = require('./users.json')
+var usersDb = require('./public/users.json')
 var flowersDb = require('./flowers.json')
 
 var express = require('express');
@@ -71,12 +71,11 @@ app.get('/about',function(req,res){
 app.get('/users-management',function(req,res){
     currentUser = req.query.name;
     role = getUserRole(currentUser);
-    if(role == workerPosition){
-        res.sendFile(__dirname + '/public/users-management-worker.html');
+    if (role == workerPosition){
+        res.sendFile(__dirname + '/public/users-management-worker.html')
         return;
-    }
-    else if (role == managerPosition) {
-        res.sendFile(__dirname + '/public/users-management-manager.html');
+     } else if (role == managerPosition) {
+        res.sendFile(__dirname + '/public/users-management-manager.html')
         return;
     }
 });

@@ -1,24 +1,22 @@
 $(document).ready(function(){
-    $('#catalogBtn').click(function(){
-      $('#main-content').load('/catalog')
+    $(document).on("click", "#catalogBtn", function(){
+        window.location.hash = 'catalog';
+      $('#main-content').load('/catalog?name=' + currentUser)
     });
-    $('#contactBtn').click(function(){
-      $('#main-content').load('/contact')
+    $(document).on("click", "#contactBtn",function(){
+        window.location.hash = 'contact';
+      $('#main-content').load('/contact?name=' + currentUser)
     });
-    $('#aboutBtn').click(function(){
-      $('#main-content').load('/about')
+    $(document).on("click", "#aboutBtn",function(){
+        window.location.hash = 'about';
+      $('#main-content').load('/about?name=' + currentUser)
     });
-    $('#dropdown').click(function(){
-        sendLoadReq('#optionsDiv', '/options');
+    $('#dropdown').unbind().click(function(){
+        window.location.hash = 'options';
+    $('#optionsDiv').load('/options?name=' + currentUser)
     }); 
-    $('#usersManagementBtn').click(function(){
-        fetch('users-management?name=' +  currentUser).then(res => {
-                return res.json();
-            }).then(data => {
-                console.log(data);
-            }).catch(err => {
-                console.log(err);
-            })
+    $(document).on("click", "#usersManagementBtn",function(){
+        $('#main-content').load('users-management?name=' + currentUser)
       });
 
       const myForm = document.getElementById('loginForm');

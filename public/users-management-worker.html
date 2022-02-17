@@ -8,7 +8,53 @@
 
 
 
-
+<html>
+    <head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    
+    <script>
+    
+        $(function() {
+    
+    
+       var people = [];
+    
+       $.getJSON('users.json', function(data) {
+           $.each(data, function(i, f) {
+            if (f.position == "Worker"){
+              var tblRow =  "<tr>" +  "<td>" + f.name + "</td>" +  "<td>" + f.lastname + "</td>" + "<td>" + f.position + "</td>"   + "<td>"+ "</td>" + "</tr>"
+               $(tblRow).appendTo("#userdata tbody");
+            }
+         });
+    
+       });
+    
+    });
+    </script>
+    </head>
+    
+    <body>
+      <div id="center">
+           <table id= "userdata" border="6">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>LastName</th>
+              <th>Position</th>
+        
+            </tr>
+                </thead>
+              <tbody>
+        
+               </tbody>
+           </table>
+        
+       
+        </div>
+        
+        </body>
+    </html>
+    
 
 
 
