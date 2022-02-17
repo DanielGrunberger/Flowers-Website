@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="script.js"></script>
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -18,14 +19,14 @@
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      <button type="button" class="navbar-toggle" id="optionsBtn">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
       <a class="navbar-brand" href="#myPage">Logo</a>
     </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+    <div class="collapse navbar-collapse" >
       <ul class="nav navbar-nav navbar-right">
         <li>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" id="loginModalBtn">
@@ -37,9 +38,11 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-        <li><button type="button" id="catalogBtn">CATALOG</button></li>
-        <li><button type="button" id="contactBtn">CONTACT</button></li>
-        <li><button type="button" id="aboutBtn">ABOUT</button></li>
+        <div id="optionsDiv">
+          <li><button type="button" id="catalogBtn">CATALOG</button></li>
+          <li><button type="button" id="contactBtn">CONTACT</button></li>
+          <li><button type="button" id="aboutBtn">ABOUT</button></li>
+        </div>
           </ul>
         </li>
       </ul>
@@ -91,74 +94,3 @@
 </div>
 </body>
 </html>
-
-
-<script>
-
-  $(document).ready(function(){
-    $('#catalogBtn').click(function(){
-      $('#main-content').load('/catalog')
-    });
-    $('#contactBtn').click(function(){
-      $('#main-content').load('/contact')
-    });
-    $('#aboutBtn').click(function(){
-      $('#main-content').load('/about')
-    });
-  });
-
-
-  const myForm = document.getElementById('loginForm');
-  var currentUser = "";
-  myForm.addEventListener('submit', function  (e) {
-    e.preventDefault();
-
-    btn = document.getElementById('loginModalBtn');
-    if (btn.innerText == 'LOGIN'){
-    const formData = new FormData(this);
-    const plainFormData = Object.fromEntries(formData.entries());
-    const formDataJsonString = JSON.stringify(plainFormData);
-    fetch('/login', {
-      headers: {
-      'Content-Type': 'application/json'
-    },
-      method: 'post',
-      body: formDataJsonString
-    }).then(function (response){
-      console.log(response.status)
-      if (response.status == 200) {
-        btn = document.getElementById('loginModalBtn');
-        btn.innerText = 'LOGOUT';
-        $('#loginModalBtn').removeAttr('data-toggle');
-        currentUser = plainFormData.username;
-        sendFetchReq("home");
-        $('#loginModal').modal('toggle'); 
-      }
-      return response.text();
-    }).then(function (text) {
-      console.log(text);
-    }).catch(function (error){ 
-      console.error(error);
-    })
-  }});
-
-  const modalBtn = document.getElementById('loginModalBtn');
-  modalBtn.addEventListener("click", updateLoginButton);
-
-  function updateLoginButton() {
-    btn = document.getElementById('loginModalBtn');
-    if (btn.innerText == 'LOGOUT'){
-    $('#loginModalBtn').attr('data-toggle', 'modal');
-    btn.innerText = "LOGIN";
-    currentUser = ""; 
-    sendFetchReq("");
-  }
-}
-
-  function sendFetchReq(url) {
-    btn = document.getElementById('loginModalBtn');
-   fetch('/' + url + '?' + new URLSearchParams({
-     name: currentUser,
-  }));
-  }
-</script>

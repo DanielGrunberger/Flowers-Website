@@ -6,18 +6,24 @@ var express = require('express');
 var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 var bodyParser = require('body-parser');
-app.use(function (req, res, next) {
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    res.header('Expires', '-1');
-    res.header('Pragma', 'no-cache');
-    next()
-});
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
 
 var LoggedIn  = false;
+var workerPosition = "Worker";
+var managerPosition = "Manager";
+
+function getUserRole(username) {
+    let result = usersDb.filter(obj => {
+        return obj.username === username 
+    })
+    if (result.length != 1) {
+        return ""
+    }
+    return result[1].position
+}
 
 function checkCreds(username, password) {
         let result = usersDb.filter(obj => {
@@ -61,6 +67,16 @@ app.get('/contact',function(req,res){
 
 app.get('/about',function(req,res){
     res.sendFile(__dirname + '/public/about.html');
+});
+
+app.get('/options',function(req,res){
+    role = getUserRole;
+    if(role == workerPosition || role == managerPosition) {
+     res.sendFile(__dirname + '/public/authenticated-options.html');
+     return;
+    }
+
+    res.sendFile(__dirname + '/public/unauthenticated-options.html');
 });
 
 
