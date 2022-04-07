@@ -1,24 +1,12 @@
-
-
-
-
-
-
-
-
-
-
 <html>
     <head>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
     
     <script>
-    
-        $(function() {
-    
-    
+      
+    function getUsers() {
        var people = [];
-    
+          
        $.getJSON('users.json', function(data) {
            $.each(data, function(i, f) {
             if (f.position == "Worker"){
@@ -26,32 +14,35 @@
                $(tblRow).appendTo("#userdata tbody");
             }
          });
-    
        });
-    
+      }
+    window.onload = getUsers(); 
+    $(document).on("click", "#refreshBtn",function(){
+        $("#userdata tbody").children().remove();
+        getUsers();
     });
+    
     </script>
     </head>
     
     <body>
       <div id="center">
-           <table id= "userdata" border="6">
+        <table class="table" id="userdata">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>LastName</th>
-              <th>Position</th>
-        
+              <th scope="col">Name</th>
+              <th scope="col">Lastname</th>
+              <th scope="col">Position</th>
             </tr>
-                </thead>
-              <tbody>
-        
-               </tbody>
-           </table>
-        
-       
+          </thead>
+          <tbody>
+           
+          </tbody>
+        </table>
+        <p><button id="refreshBtn"><i class="glyphicon glyphicon-refresh" style="font-size:50px;"></i></button></p>
         </div>
         
+
         </body>
     </html>
     
