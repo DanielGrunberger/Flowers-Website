@@ -1,36 +1,42 @@
 [
     {
-        "username":"Dg",
+        "username": "Dg",
         "name": "Daniel",
-        "lastname":"Grunba",
-        "position":"Worker",
-        "password":"pass"
+        "lastname": "Grunba",
+        "position": "Worker",
+        "password": "pass"
     },
     {
-        "username":"Joss188",
+        "username": "Joss188",
         "name": "Joss",
-        "lastname":"Hloui",
-        "position":"Client",
-         "password":"h74345"
+        "lastname": "Hloui",
+        "position": "Client",
+        "password": "h74345"
     },
     {
-        "username":"Eviatar770",
+        "username": "Eviatar770",
         "name": "Eviatar",
-        "lastname":"Sabag",
-        "position":"Client",
-        "password":"ju65"
+        "lastname": "Sabag",
+        "position": "Client",
+        "password": "ju65"
     },
     {
-        "username":"YehudBarak",
+        "username": "YehudBarak",
         "name": "Yehud",
-        "lastname":"Barak",
-        "position":"Worker",
-        "password":"534g"
+        "lastname": "Barak",
+        "position": "Worker",
+        "password": "534g"
     },
     {
-        "username":"LarisLaris",
+        "username": "LarisLaris",
         "name": "Laris",
-        "lastname":"Goje",
-        "position":"Worker"
+        "lastname": "Goje",
+        "position": "Worker"
+    },
+    {
+        "username": "daniel",
+        "lastname": "mock",
+        "position": "Worker",
+        "password": "daniel_mock"
     }
 ]

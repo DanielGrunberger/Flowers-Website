@@ -1,6 +1,7 @@
 const path = require('path');
 var usersDb = require('./public/users.json')
 var flowersDb = require('./flowers.json')
+const fs = require('fs')
 
 var express = require('express');
 var app = express();
@@ -23,6 +24,18 @@ function getUserRole(username) {
         return ""
     }
     return result[0].position
+}
+
+function addUser(username, name, lastname, position, password) {
+    newUser = {
+        username: username,
+        name: name,
+        lastname: lastname,
+        position: position,
+        password: password,
+    };
+    usersDb.push(newUser);
+    fs.writeFileSync("./public/users.json", JSON.stringify(usersDb));
 }
 
 function checkCreds(username, password) {
@@ -100,7 +113,20 @@ app.post('/login',  function(req, res) {
     else {
         res.sendStatus(401);
     }
-})
+});
+
+app.post('/add-user',  function(req, res) {
+    postData = req.body;
+    username = postData.firstName;
+    u_name = postData.name;
+    position = postData.position;
+    password = postData.password;
+    lastname = postData.lastName;
+    setTimeout(() => {
+        addUser(username, u_name, lastname, position, password)
+    }, 5000);
+    res.sendStatus(200);
+});
 
 
 app.listen(8080, ()=>{console.log('listening in 8080...');});

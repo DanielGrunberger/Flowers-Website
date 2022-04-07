@@ -21,7 +21,42 @@
         $("#userdata tbody").children().remove();
         getUsers();
     });
-    
+
+
+    $(document).on("click", "#addUserBtn",function(){
+      firstName = document.getElementById("firstName").value;  
+      lastName = document.getElementById("lastName").value;
+      password = document.getElementById("password").value;
+      username = document.getElementById("username").value;
+      $('#waiting').show();  
+   $.ajax({
+    type: 'POST',
+    url: 'add-user',
+    data: { 
+        firstName: firstName,
+        lastName : lastName,
+        position: "Worker",
+        password: password,
+        username: username
+    },
+    cache: false,
+    success: function() {
+      $('#waiting').hide();
+    },
+    timeout: 5000, 
+    error: function() {
+      $('#error').show();
+    },
+});
+      // function(data, status){
+      // alert("Data: " + data + "\nStatus: " + status);
+//    }); 
+ });
+
+
+ // Put the results in a div
+ 
+
     </script>
     </head>
     
@@ -40,10 +75,37 @@
           </tbody>
         </table>
         <p><button id="refreshBtn"><i class="glyphicon glyphicon-refresh" style="font-size:50px;"></i></button></p>
+      </div>
+      
+      <div>
+         <div class="input-group-prepend">
+            <span class="input-group-text" >First Name</span>
+          </div>
+        <input type="text" class="form-control" id="firstName" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >Last Name</span>
         </div>
-        
-
-        </body>
+        <input type="text" class="form-control" id="lastName" aria-label="Small2" aria-describedby="inputGroup-sizing-sm2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >Username</span>
+        </div>
+        <input type="text" class="form-control" id="username" aria-label="Small3" aria-describedby="inputGroup-sizing-sm3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >Password</span>
+        </div>
+        <input type="text" class="form-control" id="password" aria-label="Small4" aria-describedby="inputGroup-sizing-sm4">
+      </div>
+      
+      
+      <button type="button" class="btn btn-primary" id="addUserBtn">Add Worker</button>
+    </div>
+    <div id="waiting" style="display: none;">
+      <span class="input-group-text" >Waiting...</span>
+  </div>
+  <div id="waiting" style="display: none;">
+    <span class="input-group-text" >Error</span>
+</div>
+  </body>
     </html>
     
 
