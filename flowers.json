@@ -1,0 +1,23 @@
+{
+    "person":[
+    {
+        "name": "deuxieme",
+        "color": "green",
+        "price": "4.50",
+        "picture": "deuxieme.jpg"
+    },
+    {
+        "name": "premiere",
+        "color": "purple",
+        "price": "10",
+        "picture": "premiere.jpg"
+    },
+    {
+        "name": "troisieme",
+        "color": "green",
+        "price": "2.5",
+        "picture": "troisieme.jpg"
+    }
+    
+    ]   
+}

@@ -1,0 +1,143 @@
+<html>
+    <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+    <style> 
+      body {
+        background-image: url("manager.jpg");
+        background-color: #cccccc;
+      }
+      </style>
+    <script>
+      
+    function getUsers() {
+       var people = [];
+          
+       $.getJSON('users.json', function(data) {
+           $.each(data, function(i, f) {
+            a = f.firstname;
+            if (!a ){
+                a = f.name;
+            }
+            if (a ){//&& f.status !="not_active"
+            var tblRow =  "<tr>" +  "<td>" + a + "</td>" +  "<td>" + f.lastname + "</td>" + "<td>" + f.position + "</td>"   + "<td>"+ "</td>" + "</tr>"
+              $(tblRow).appendTo("#userdata tbody");}
+            
+         });
+       });
+      }
+    window.onload = getUsers(); 
+    $(document).on("click", "#refreshBtn",function(){
+        $("#userdata tbody").children().remove();
+        getUsers();
+    });
+
+
+    $(document).on("click", "#addUserBtn",function(){
+      position = document.getElementById("position").value;  
+      firstName = document.getElementById("firstName").value;  
+      lastName = document.getElementById("lastName").value;
+      password = document.getElementById("password").value;
+      username = document.getElementById("username").value;
+      action = document.getElementById("action_to_do").value;
+      $('#waiting').show();  
+   $.ajax({
+    type: 'POST',
+    url: 'add-user',
+    data: { 
+        firstName: firstName,
+        lastName : lastName,
+        position: position,
+        password: password,
+        username: username,
+        action: action
+    },
+    cache: false,
+    success: function() {
+      $('#waiting').hide();
+    },
+    timeout: 5000, 
+    error: function() {
+      $('#error').show();
+    },
+});
+      // function(data, status){
+      // alert("Data: " + data + "\nStatus: " + status);
+//    }); 
+ });
+ 
+
+
+
+
+ // Put the results in a div
+ 
+
+    </script>
+    </head>
+    
+    <body>
+      <div id="center">
+        <table class="table" id="userdata">
+          <thead>
+            <tr>
+              <th scope="col">FirstName</th>
+              <th scope="col">Lastname</th>
+              <th scope="col">Position</th>
+            </tr>
+          </thead>
+          <tbody>
+           
+          </tbody>
+        </table>
+        <p><button id="refreshBtn"> <a href="#" class="btn btn-info btn-lg">
+          <span class="glyphicon glyphicon-refresh"></span> Refresh
+        </a></button></p>
+      </div>
+      
+      <div>
+        <select class="custom-select" id="position">
+          <option selected>Choose the status to add :</option>
+          <option value="Manager">Manager</option>
+          <option value="Worker">Worker</option>
+          <option value="Client">Client</option>
+        </select>
+        <select class="custom-select" id="action_to_do">
+          <option selected>Choose the action to do :</option>
+          <option value="Add">Add</option>
+          <option value="Delete">Delete</option>
+          <option value="Edit">Edit</option>
+        </select>
+         <div class="input-group-prepend">
+            <span class="input-group-text" >First Name</span>
+          </div>
+        <input type="text" class="form-control" id="firstName" aria-label="Small" aria-describedby="inputGroup-sizing-sm" >
+        <div class="input-group-prepend">
+          <span class="input-group-text" >Last Name</span>
+        </div>
+        <input type="text" class="form-control" id="lastName" aria-label="Small2" aria-describedby="inputGroup-sizing-sm2">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >Username</span>
+        </div>
+        <input type="text" class="form-control" id="username" aria-label="Small3" aria-describedby="inputGroup-sizing-sm3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" >Password</span>
+        </div>
+        <input type="text" class="form-control" id="password" aria-label="Small4" aria-describedby="inputGroup-sizing-sm4">
+      </div>
+      
+      
+      <button type="button" class="btn btn-primary" id="addUserBtn">Add User</button>
+    </div>
+    <div id="waiting" style="display: none;">
+      <span class="input-group-text" >Waiting...</span>
+  </div>
+  <div id="waiting" style="display: none;">
+    <span class="input-group-text" >Error</span>
+</div>
+  </body>
+    </html>
+    
+
+
+
