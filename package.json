@@ -1,5 +1,6 @@
 {
   "name": "flowers-website",
+<<<<<<< HEAD
   "version": "1.0.0",
   "description": "![image](https://user-images.githubusercontent.com/57400419/149516566-3ceaa67b-7a47-40de-9796-7b66d4643b8b.png)",
   "main": "server.js",
@@ -22,5 +23,20 @@
     "connect": "^3.7.0",
     "express": "^4.17.2",
     "nocache": "^3.0.1"
+=======
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "^1.11.0",
+    "morgan": "~1.9.1"
+>>>>>>> master
   }
 }
