@@ -4,18 +4,24 @@
 
     <script>
 
-    function getUsers() {
+function getUsers() {
        var people = [];
 
-       $.getJSON('users.json', function(data) {
-           $.each(data, function(i, f) {
-            if (f.position == "Worker"){
-              var tblRow =  "<tr>" +  "<td>" + f.firstname + "</td>" +  "<td>" + f.lastname + "</td>" + "<td>" + f.position + "</td>"   + "<td>"+ "</td>" + "</tr>"
-               $(tblRow).appendTo("#userdata tbody");
+      $.ajax({
+      type: 'GET',
+      url: 'worker-users',
+      success: function(data) {
+        $.each(data, function(i, f) {
+            a = f.firstname;
+            if (!a ){
+                a = f.name;
             }
-         });
-       });
-      }
+            if (a ){
+            var tblRow =  "<tr>" +  "<td>" + a + "</td>" +  "<td>" + f.lastname + "</td>" + "<td>" + f.position + "</td>" +  "<td>" + f.username+ "</td>"
+              + "<td>" + f.password + "</td>"   + "<td>"+ "</td>" + "</tr>"
+              $(tblRow).appendTo("#userdata tbody");}
+    })}})};
+
     window.onload = getUsers(); 
     $(document).on("click", "#refreshBtn",function(){
         $("#userdata tbody").children().remove();

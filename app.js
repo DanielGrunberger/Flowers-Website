@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path'); 
 var cookieParser = require('cookie-parser'); // middleware module of express for cookies
 var logger = require('morgan');  // middleware module of express for http logs
-
+const mongoose = require("mongoose");
 var usersDb = require('./views/users.json')
 var flowersDb = require('./views/flowers.json')
 const fs = require('fs')
@@ -27,7 +27,9 @@ var usersManagementRouter = require('./routes/usersManagement');
 var optionsRouter = require('./routes/options');
 var loginRouter = require('./routes/login');
 var addUserRouter = require('./routes/addUser');
-var addUserRouter = require('./routes/error');
+var allUsersRouter = require('./routes/allUsers');
+var workerUsersRouter= require('./routes/workerUsers');
+var errorRouter = require('./routes/error');
 
 var app = express();
 
@@ -41,6 +43,14 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/views/')));
 app.engine('html', require('ejs').renderFile);
 
+mongoose.connect('mongodb://localhost/flowers-website');
+
+mongoose.connection.once('open', function(){
+    console.log('Connected to db');
+}).on('error', function(error){
+    console.log("Error connecting to db: ", error)
+});
+
 app.use('/', indexRouter);
 app.use('/home', homeRouter);
 app.use('/catalog', catalogRouter);
@@ -50,6 +60,8 @@ app.use('/users-management', usersManagementRouter);
 app.use('/options', optionsRouter);
 app.use('/login', loginRouter);
 app.use('/add-user', addUserRouter);
+app.use('/all-users', allUsersRouter);
+app.use('/worker-users', workerUsersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
