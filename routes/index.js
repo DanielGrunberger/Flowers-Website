@@ -4,6 +4,7 @@ var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log('Hello')
   currentUser = req.query.name;
   if (currentUser != "") {
       console.log('logged in');
