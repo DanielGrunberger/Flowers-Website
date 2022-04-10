@@ -4,19 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser'); // middleware module of express for cookies
 var logger = require('morgan');  // middleware module of express for http logs
 const mongoose = require("mongoose");
-var usersDb = require('./views/users.json')
-var flowersDb = require('./views/flowers.json')
-const fs = require('fs')
 var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-
-var LoggedIn  = false;
-var workerPosition = "Worker";
-var managerPosition = "Manager";
 
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
@@ -33,13 +26,11 @@ var errorRouter = require('./routes/error');
 
 var app = express();
 
-// view engine setup
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, '/views/')));
 app.engine('html', require('ejs').renderFile);
 
@@ -59,7 +50,7 @@ app.use('/about', aboutRouter);
 app.use('/users-management', usersManagementRouter);
 app.use('/options', optionsRouter);
 app.use('/login', loginRouter);
-app.use('/add-user', addUserRouter);
+app.use('/post-user', addUserRouter);
 app.use('/all-users', allUsersRouter);
 app.use('/worker-users', workerUsersRouter);
 

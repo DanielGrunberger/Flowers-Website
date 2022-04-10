@@ -6,6 +6,7 @@ const User = require('../models/users');
 router.get('/', (req, res) => {
   User.find()
   .then((result) => {
+    console.log(result);
     res.send(result);
   })
   .catch((error) => {

@@ -1,6 +1,5 @@
 <html>
     <head>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
     <style> 
 
@@ -15,14 +14,9 @@
       url: 'all-users',
       success: function(data) {
         $.each(data, function(i, f) {
-            a = f.firstname;
-            if (!a ){
-                a = f.name;
-            }
-            if (a ){
-            var tblRow =  "<tr>" +  "<td>" + a + "</td>" +  "<td>" + f.lastname + "</td>" + "<td>" + f.position + "</td>" +  "<td>" + f.username+ "</td>"
+            var tblRow =  "<tr>" +  "<td>" + f.firstname + "</td>" +  "<td>" + f.lastname + "</td>" + "<td>" + f.position + "</td>" +  "<td>" + f.username+ "</td>"
               + "<td>" + f.password + "</td>"   + "<td>"+ "</td>" + "</tr>"
-              $(tblRow).appendTo("#userdata tbody");}
+              $(tblRow).appendTo("#userdata tbody");
     })}})};
 
     window.onload = getUsers(); 
@@ -30,25 +24,23 @@
         $("#userdata tbody").children().remove();
         getUsers();
     });
-
-
-    $(document).on("click", "#addUserBtn",function(){
-      position = document.getElementById("position").value;  
-      firstName = document.getElementById("firstName").value;  
-      lastName = document.getElementById("lastName").value;
-      password = document.getElementById("password").value;
-      username = document.getElementById("username").value;
-      action = document.getElementById("action_to_do").value;
+    function sendUserData(action) {
+      position = $("#position :selected").val();  
+      firstName = $("#firstName").val();  
+      lastName = $("#lastName").val();
+      password = $("#password").val();
+      username = $("#username").val();
       $('#waiting').show();  
    $.ajax({
     type: 'POST',
-    url: 'add-user',
+    url: 'post-user',
     data: { 
-        firstName: firstName,
-        lastName : lastName,
+        name: firstName,
+        lastname : lastName,
         position: position,
         password: password,
-        username: username,
+        user: username,
+        status: 'active',
         action: action
     },
     cache: false,
@@ -59,11 +51,18 @@
     error: function() {
       $('#error').show();
     },
-});
-      // function(data, status){
-      // alert("Data: " + data + "\nStatus: " + status);
-//    }); 
- });
+  });
+    }
+
+    $(document).on("click", "#addUserBtn",function(){
+        sendUserData('add');
+ }); 
+    $(document).on("click", "#editUserBtn",function(){
+          sendUserData('edit');
+    });
+    $(document).on("click", "#deleteUserBtn",function(){
+          sendUserData('delete');
+    });
 
 
 
@@ -103,12 +102,7 @@
           <option value="Worker">Worker</option>
           <option value="Client">Client</option>
         </select>
-        <select class="custom-select" id="action_to_do">
-          <option selected>Choose the action to do :</option>
-          <option value="Add">Add</option>
-          <option value="Delete">Delete</option>
-          <option value="Edit">Edit</option>
-        </select>
+
          <div class="input-group-prepend">
             <span class="input-group-text" >First Name</span>
           </div>
@@ -128,7 +122,9 @@
       </div>
 
 
-      <button type="button" class="btn btn-primary" id="addUserBtn">Add User</button>
+      <button type="button" class="btn btn-primary" id="addUserBtn">Add</button>
+      <button type="button" class="btn btn-primary" id="editUserBtn">Edit</button>
+      <button type="button" class="btn btn-primary" id="deleteUserBtn">Delete</button>
     </div>
     <div id="waiting" style="display: none;">
       <span class="input-group-text" >Waiting...</span>
