@@ -19,7 +19,7 @@ var aboutRouter = require('./routes/about');
 var usersManagementRouter = require('./routes/usersManagement');
 var optionsRouter = require('./routes/options');
 var loginRouter = require('./routes/login');
-var addUserRouter = require('./routes/addUser');
+var postUserRouter = require('./routes/postUser');
 var allUsersRouter = require('./routes/allUsers');
 var workerUsersRouter= require('./routes/workerUsers');
 var errorRouter = require('./routes/error');
@@ -36,11 +36,6 @@ app.engine('html', require('ejs').renderFile);
 
 mongoose.connect('mongodb://localhost/flowers-website');
 
-mongoose.connection.once('open', function(){
-    console.log('Connected to db');
-}).on('error', function(error){
-    console.log("Error connecting to db: ", error)
-});
 
 app.use('/', indexRouter);
 app.use('/home', homeRouter);
@@ -50,7 +45,7 @@ app.use('/about', aboutRouter);
 app.use('/users-management', usersManagementRouter);
 app.use('/options', optionsRouter);
 app.use('/login', loginRouter);
-app.use('/post-user', addUserRouter);
+app.use('/post-user', postUserRouter);
 app.use('/all-users', allUsersRouter);
 app.use('/worker-users', workerUsersRouter);
 

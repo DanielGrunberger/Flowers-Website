@@ -1,19 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var usersDb = require('../views/users.json')
+const User = require('../models/users');
 
-function checkCreds(user, password) {
-    let result = usersDb.filter(obj => {
-        return obj.user === user && obj.password == password
-    })
-    if (result.length != 1) {
+async function checkCreds(username, password) {
+    user_query = await User.checkCredentials(username,password);
+    if (!user_query) {
         return false
     }
     return true
 }
 
 
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
     var postData = req.body;
     if (checkCreds(postData.username, postData.password)) {
         LoggedIn = true;

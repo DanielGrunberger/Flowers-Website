@@ -30,20 +30,22 @@ function getUsers() {
 
 
     $(document).on("click", "#addUserBtn",function(){
-      firstName = document.getElementById("firstName").value;  
-      lastName = document.getElementById("lastName").value;
-      password = document.getElementById("password").value;
-      username = document.getElementById("username").value;
+      firstName = $("#firstName").val();  
+      lastName = $("#lastName").val();
+      password = $("#password").val();
+      username = $("#username").val();
       $('#waiting').show();  
    $.ajax({
     type: 'POST',
-    url: 'add-user',
+    url: 'post-user',
     data: { 
-        firstName: firstName,
-        lastName : lastName,
-        position: "Worker",
+      name: firstName,
+        lastname : lastName,
+        position: 'Worker',
         password: password,
-        username: username
+        user: username,
+        status: 'active',
+        action: 'add'
     },
     cache: false,
     success: function() {

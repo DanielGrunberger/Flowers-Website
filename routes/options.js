@@ -2,27 +2,25 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var usersDb = require('../views/users.json')
+const User = require('../models/users');
 var workerPosition = "Worker";
 var managerPosition = "Manager";
 
-function getUserRole(username) {
-    let result = usersDb.filter(obj => {
-        return obj.user === username 
-    })
-    if (result.length != 1) {
+async function getUserRole(username) {
+    user_query = await User.getByUsername(username);
+    if (!user_query) {
         return ""
     }
-    return result[0].position
+    console.log(user_query);
+    return user_query.position;
 }
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res) {
     currentUser = req.query.name;
-    role = getUserRole(currentUser);
+    role = await getUserRole(currentUser);
     if(role == workerPosition || role == managerPosition) {
        res.sendFile(path.resolve(__dirname+ '/../views/authenticated-options.html'));
-     return;
+        return;
     }
     res.sendFile(path.resolve(__dirname+ '/../views/unauthenticated-options.html'));
 });
