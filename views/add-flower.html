@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/add-flower" enctype="multipart/form-data" method="POST">
+    <input type="text" class="form-control" id="name" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+    <div class="input-group-prepend">
+        <span class="input-group-text" >Name</span>
+      </div>
+      <input type="text" class="form-control" id="price" aria-label="Small1" aria-describedby="inputGroup-sizing-sm1">
+      <div class="input-group-prepend">
+        <span class="input-group-text" >Price</span>
+      </div>
+    <h1>Upload Image</h1>
+        <input type="file" name="myImage" accept="image/*">
+        <input type="submit" value="Upload Photo">
+    </form>
+</body>
+</html>

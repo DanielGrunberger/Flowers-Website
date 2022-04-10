@@ -15,6 +15,12 @@ $(document).ready(function(){
       window.location.hash = 'options';
   $('#optionsDiv').load('/options?name=' + currentUser)
   }); 
+  $(document).ready(function(){
+    $(document).on("click", "#addFlowerBtn",function(){
+      window.location.hash = 'add-flower';
+    $('#main-content').load('/add-flower?name=' + currentUser)
+  });
+  });
   $(document).on("click", "#usersManagementBtn",function(){
       $('#main-content').load('users-management?name=' + currentUser)
     });

@@ -23,6 +23,7 @@ var postUserRouter = require('./routes/postUser');
 var allUsersRouter = require('./routes/allUsers');
 var workerUsersRouter= require('./routes/workerUsers');
 var errorRouter = require('./routes/error');
+var addFlowerRouter = require('./routes/addFlower');
 
 var app = express();
 
@@ -47,6 +48,7 @@ app.use('/options', optionsRouter);
 app.use('/login', loginRouter);
 app.use('/post-user', postUserRouter);
 app.use('/all-users', allUsersRouter);
+app.use('/add-flower', addFlowerRouter);
 app.use('/worker-users', workerUsersRouter);
 
 // catch 404 and forward to error handler

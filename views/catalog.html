@@ -4,21 +4,19 @@
 
 <script>
 
-    $(function() {
-
-
+  function getFlowers() {
    var people = [];
+   $.ajax({
+      type: 'GET',
+      url: 'all-flowers',
+      success: function(data) {
+        $.each(data.person, function(i, f) {
+           var tblRow = "<tr>" + "<td>" + f.name + "</td>" +
+            "<td>" + f.color + "</td>" + "<td>" + f.price + "</td>" + "<td>"+ "</td>" + "</tr>"
+            $(tblRow).appendTo("#userdata tbody");
+    })}})};
 
-   $.getJSON('people.json', function(data) {
-       $.each(data.person, function(i, f) {
-          var tblRow = "<tr>" + "<td>" + f.name + "</td>" +
-           "<td>" + f.color + "</td>" + "<td>" + f.price + "</td>" + "<td>"+ "</td>" + "</tr>"
-           $(tblRow).appendTo("#userdata tbody");
-     });
-
-   });
-
-});
+  
 </script>
 </head>
 
@@ -47,8 +45,7 @@
    
     </div>
     
-    </body>
-    </html>
+ 
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -89,4 +86,8 @@
     <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
+
 </div>
+<button type="button" class="btn btn-primary" id="addFlowerBtn">Add Flower</button>
+</body>
+</html>
