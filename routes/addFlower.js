@@ -3,39 +3,57 @@ var router = express.Router();
 const Flower = require('../models/flowers');
 const multer = require('multer');
 var path = require('path');
+var fs = require('fs');
+const User = require('../models/users');
+var providerPosition = "Provider";
+var managerPosition = "Manager";
 
 var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now())
-    }
-  })
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+var upload = multer({ storage: storage })
 
-  var upload = multer({ storage: storage })
-
-router.post('/',  async (req, res) => {
-    var img = fs.readFileSync(req.file.path);
+router.post('/',   upload.single('img'), async (req, res) => {
     postData = req.body;
-    var encode_img = img.toString('base64');
-    var final_img = {
-        contentType:req.file.mimetype,
-        image:new Buffer(encode_img,'base64')
-    };
+    console.log(postData);
+    console.log(req.file.filename);
+    img =  {
+      data: fs.readFileSync(path.join(__dirname + '/../uploads/' + req.file.filename)),
+      contentType: 'image/png'
+  };
+
     flower = {
         name: postData.name,
         price: postData.price,
-        image: final_img
+        image: img
     }
     try {
-        await Flower.add(user);
+        await Flower.add(flower);
     }
     catch (err) { console.log(`Failed: ${err}`) }
 });
 
-router.get('/', function(req, res) {
-    res.sendFile(path.resolve(__dirname+ '/../views/add-flower.html'));
+router.get('/', async function(req, res) {
+  currentUser = req.query.name;
+    role = await getUserRole(currentUser);
+    if (role == managerPosition || role == providerPosition) {
+    res.sendFile(path.resolve(__dirname+ '/../public/add-flower.html'));
+    }
+    else{
+      res.render('forbidden.html');
+    }
 });
 
+async function getUserRole(username) {
+  user_query = await User.getByUsername(username);
+  if (!user_query) {
+      return ""
+  }
+  return user_query.position;
+}
 module.exports = router;

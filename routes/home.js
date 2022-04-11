@@ -5,7 +5,7 @@ var path = require('path');
 router.get('/', function(req, res) {
     currentUser = req.query.name;
     if (currentUser != "") {
-        res.sendFile(path.resolve(__dirname+ '/../views/index.html'));
+        res.sendFile(path.resolve(__dirname+ '/../public/index.html'));
     }
     else {
         console.log("Non-authenticated")

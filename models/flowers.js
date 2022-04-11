@@ -6,12 +6,8 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    color: {
-        type: String,
-        required: true
-    },
     price: {
-        type: String,
+        type: Number,
         required: true
     },
     image: {
@@ -24,6 +20,16 @@ const schema = new Schema({
 
 schema.statics.add = async function(flower) {
     return this.create(flower);
+};
+schema.statics.getAll = async function() {
+    result = await this.find();
+    console.log(result[0].price);
+    return this.find();
+};
+schema.statics.getByName = async function(flowerName) {
+    return this.findOne({
+        name: flowerName
+    });
 };
 
 module.exports = mongoose.model('flowers', schema);

@@ -11,7 +11,6 @@ async function getUserRole(username) {
     if (!user_query) {
         return ""
     }
-    console.log(user_query);
     return user_query.position;
 }
 
@@ -19,10 +18,10 @@ router.get('/', async function(req, res) {
     currentUser = req.query.name;
     role = await getUserRole(currentUser);
     if(role == workerPosition || role == managerPosition) {
-       res.sendFile(path.resolve(__dirname+ '/../views/authenticated-options.html'));
+       res.sendFile(path.resolve(__dirname+ '/../public/authenticated-options.html'));
         return;
     }
-    res.sendFile(path.resolve(__dirname+ '/../views/unauthenticated-options.html'));
+    res.sendFile(path.resolve(__dirname+ '/../public/unauthenticated-options.html'));
 });
 
 module.exports = router;

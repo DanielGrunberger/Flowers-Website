@@ -21,10 +21,10 @@ router.get('/', async function(req, res) {
     currentUser = req.query.name;
     role = await getUserRole(currentUser);
     if (role == workerPosition){
-        res.sendFile(path.resolve(__dirname+ '/../views/users-management-worker.html'));
+        res.sendFile(path.resolve(__dirname+ '/../public/users-management-worker.html'));
         return;
      } else if (role == managerPosition) {
-        res.sendFile(path.resolve(__dirname+ '/../views/users-management-manager.html'));
+        res.sendFile(path.resolve(__dirname+ '/../public/users-management-manager.html'));
         return;
     }
 });

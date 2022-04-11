@@ -23,6 +23,7 @@ var postUserRouter = require('./routes/postUser');
 var allUsersRouter = require('./routes/allUsers');
 var workerUsersRouter= require('./routes/workerUsers');
 var errorRouter = require('./routes/error');
+var allFlowersRouter = require('./routes/allFlowers');
 var addFlowerRouter = require('./routes/addFlower');
 
 var app = express();
@@ -32,7 +33,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/views/')));
+app.use(express.static(path.join(__dirname, '/public/')));
 app.engine('html', require('ejs').renderFile);
 
 mongoose.connect('mongodb://localhost/flowers-website');
@@ -49,6 +50,7 @@ app.use('/login', loginRouter);
 app.use('/post-user', postUserRouter);
 app.use('/all-users', allUsersRouter);
 app.use('/add-flower', addFlowerRouter);
+app.use('/flowers', allFlowersRouter);
 app.use('/worker-users', workerUsersRouter);
 
 // catch 404 and forward to error handler

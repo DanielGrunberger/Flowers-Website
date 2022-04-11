@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
   else {
       console.log("Non-authenticated");
   }
-  res.sendFile(path.resolve(__dirname+ '/../views/index.html'));
+  res.sendFile(path.resolve(__dirname+ '/../public/index.html'));
 });
 
 module.exports = router;

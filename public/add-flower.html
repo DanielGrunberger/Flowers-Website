@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/styles.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <form action="/add-flower" id="addFlowerForm" enctype="multipart/form-data" method="post">
+      <div class="input-group-prepend">
+          <span class="input-group-text" >Name</span>
+        </div>
+    <input type="text" class="form-control" id="name" name="name" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+    <div class="input-group-prepend">
+      <span class="input-group-text" >Price</span>
+    </div>
+      <input type="text" class="form-control" id="price" name="price" aria-label="Small1" aria-describedby="inputGroup-sizing-sm1">
+      <h1>Upload Flower</h1>
+        <input type="file" name="img" id="img" accept="image/*">
+        <input type="submit" value="Upload Photo" id="uploadBtn">
+    </form>
+</body>
+</html>

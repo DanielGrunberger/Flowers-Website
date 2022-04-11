@@ -4,7 +4,7 @@ var path = require('path');
 
 
 router.get('/', function(req, res, next) {
-    res.sendFile(path.resolve(__dirname+ '/../views/catalog.html'));
+    res.sendFile(path.resolve(__dirname+ '/../public/catalog.html'));
 });
 
 module.exports = router;

@@ -1,8 +1,17 @@
 $(document).ready(function(){
-  $(document).on("click", "#catalogBtn", function(){
+  $(document).on("click", "#uploadBtn", function(){
       window.location.hash = 'catalog';
     $('#main-content').load('/catalog?name=' + currentUser)
   });
+  $(document).on("click", "#addFlowerBtn",function(){
+    window.location.hash = 'add-flower';
+     $('#main-content').load('/add-flower?name=' + currentUser)
+    });
+  $(document).on("click", "#catalogBtn", function(){
+    window.location.hash = 'catalog';
+  $('#main-content').load('/catalog?name=' + currentUser)
+});
+
   $(document).on("click", "#contactBtn",function(){
       window.location.hash = 'contact';
     $('#main-content').load('/contact?name=' + currentUser)
@@ -11,16 +20,11 @@ $(document).ready(function(){
       window.location.hash = 'about';
     $('#main-content').load('/about?name=' + currentUser)
   });
+
   $('#dropdown').unbind().click(function(){
       window.location.hash = 'options';
   $('#optionsDiv').load('/options?name=' + currentUser)
   }); 
-  $(document).ready(function(){
-    $(document).on("click", "#addFlowerBtn",function(){
-      window.location.hash = 'add-flower';
-    $('#main-content').load('/add-flower?name=' + currentUser)
-  });
-  });
   $(document).on("click", "#usersManagementBtn",function(){
       $('#main-content').load('users-management?name=' + currentUser)
     });
@@ -79,9 +83,5 @@ $(document).ready(function(){
     }));
   }
 
-    function sendLoadReq(elementId, url) {
-      url = url + '?name=' +  currentUser; 
-      $(elementId).load(url);
-    }
 
 });

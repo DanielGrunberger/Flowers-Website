@@ -120,6 +120,7 @@ h3, h4 {
 .dropdown-menu li a:hover {
   background-color: red !important;
 }
+
 footer {
   background-color: #2d2d30;
   color: #f5f5f5;
@@ -138,3 +139,11 @@ footer a:hover {
 textarea {
   resize: none;
 } 
+#optionsDiv li {
+  display: block; /*compensate for spaces in the source if using this*/
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center; /* optional */
+  list-style-type: none;
+ }
