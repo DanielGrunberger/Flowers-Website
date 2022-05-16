@@ -18,13 +18,13 @@ async function getUserRole(username) {
 
 /* GET users listing. */
 router.get('/', async function(req, res) {
-    currentUser = req.query.name;
+    currentUser = req.user.username;
     role = await getUserRole(currentUser);
     if (role == workerPosition){
-        res.sendFile(path.resolve(__dirname+ '/../public/users-management-worker.html'));
+        res.render('users-management-worker.ejs');
         return;
      } else if (role == managerPosition) {
-        res.sendFile(path.resolve(__dirname+ '/../public/users-management-manager.html'));
+        res.render('users-management-manager.ejs');
         return;
     }
 });

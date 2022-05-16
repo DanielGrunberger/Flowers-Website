@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+var passportLocalMongoose = require('passport-local-mongoose'); 
 
-const schema = new Schema({
+const UserSchema = new Schema({
     firstname: {
         type: String,
         required: true
@@ -15,8 +16,7 @@ const schema = new Schema({
         required: true
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     position: {
         type: String,
@@ -25,54 +25,50 @@ const schema = new Schema({
     status: {
         type: String
     },
+    email :{
+        type: String
+    },
     created_at: Date,
     updated_at: Date
 }, {timestamps: true});
 
 
-schema.statics.add = async function(user) {
-    const existUsername = await this.findOne({ username: user.username});
-    if (!existUsername) {
-        return this.create(user);
-    }
-};
+// UserSchema.statics.add = async function(user) {
+//     const existUsername = await this.findOne({ username: user.username});
+//     if (!existUsername) {
+//         return this.create(user);
+//     }
+// };
 
-schema.statics.getAll = async function() {
+UserSchema.statics.getAll = async function() {
     return this.find();
 };
 
-schema.statics.getByUsername = async function(username) {
+UserSchema.statics.getByUsername = async function(username) {
     return this.findOne({
         username: username
     });
 };
 
-schema.statics.getWorkers = async function() {
+UserSchema.statics.getWorkers = async function() {
     return this.find({
       position: 'Worker'
     });
 };
 
 
-schema.statics.checkCredentials = async function(username, password) {
-    return this.findOne({
-        username: username,
-        password: password
-    });
-};
-
-schema.statics.edit = async function(user) {
+UserSchema.statics.update = async function(user) {
     return this.updateOne( {username: user.username}, user);
 };
 
 
-schema.statics.delete = async function(user) {
+UserSchema.statics.delete = async function(user) {
     return this.deleteOne({
         username: user.username
     });
 };
 
-schema.pre('save', function(next) {
+UserSchema.pre('save', function(next) {
     let currentDate = new Date();
     this.updated_at = currentDate;
     if (!this.created_at)
@@ -80,9 +76,9 @@ schema.pre('save', function(next) {
     next();
 });
 
+UserSchema.plugin(passportLocalMongoose);
 
-
-module.exports = mongoose.model('users', schema);
+module.exports = mongoose.model('users', UserSchema);
 
 
 

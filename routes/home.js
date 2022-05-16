@@ -3,9 +3,9 @@ var router = express.Router();
 var path = require('path');
 
 router.get('/', function(req, res) {
-    currentUser = req.query.name;
+    currentUser = req.user;
     if (currentUser != "") {
-        res.sendFile(path.resolve(__dirname+ '/../public/index.html'));
+        res.render('index.ejs');
     }
     else {
         console.log("Non-authenticated")

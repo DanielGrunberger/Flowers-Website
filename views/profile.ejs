@@ -1,0 +1,78 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+  <style>
+
+  </style>
+  <script>
+
+    function getUser() {
+      var people = [];
+
+      $.ajax({
+        type: 'GET',
+        url: '/user-info',
+        success: function (data) {
+          var tblRow = "<tr>" + "<td>" + data.firstname + "</td>" + "<td>" + data.lastname + "</td>" + "<td>" + data.position + "</td>" + "<td>" + data.username + "</td>"
+            + "<td>" + "</td>" + "</tr>"
+          $(tblRow).appendTo("#userdata tbody");
+        }
+      })
+    };
+
+    window.onload = getUser(); 
+  </script>
+</head>
+
+<body>
+  <div id="center">
+    <table class="table" id="userdata">
+      <thead>
+        <tr>
+          <th scope="col">Firstname</th>
+          <th scope="col">Lastname</th>
+          <th scope="col">Position</th>
+          <th scope="col">User</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+      </tbody>
+    </table>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Update
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="update-user">
+              <label for="firstname">Firstname:</label><br>
+              <input type="text" id="firstname" name="firstname"><br>
+              <label for="lastname">Lastname:</label><br>
+              <input type="text" id="lastname" name="lastname"><br>
+              <label for="Username">User:</label><br>
+              <input type="text" id="Username" name="Username">
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

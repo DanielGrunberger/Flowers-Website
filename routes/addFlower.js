@@ -39,13 +39,13 @@ router.post('/',   upload.single('img'), async (req, res) => {
 });
 
 router.get('/', async function(req, res) {
-  currentUser = req.query.name;
+    currentUser = req.user.username;
     role = await getUserRole(currentUser);
     if (role == managerPosition || role == providerPosition) {
-    res.sendFile(path.resolve(__dirname+ '/../public/add-flower.html'));
+    res.sendFile(path.resolve(__dirname+ '/../views/add-flower..ejs'));
     }
     else{
-      res.render('forbidden.html');
+      res.render('../views/forbidden..ejs');
     }
 });
 

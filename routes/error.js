@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require('path');
 
 router.get('/', function(req, res) {
-    res.sendFile(path.resolve(__dirname+ '/../public/error.html'));
+    res.render('error.ejs');
 });
 
 module.exports = router;

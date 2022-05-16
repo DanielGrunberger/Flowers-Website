@@ -1,25 +1,25 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/users');
-
-async function checkCreds(username, password) {
-    user_query = await User.checkCredentials(username,password);
-    if (!user_query) {
-        return false
-    }
-    return true
-}
+var passport = require('passport');
 
 
-router.post('/', function(req, res) {
-    var postData = req.body;
-    if (checkCreds(postData.username, postData.password)) {
-        LoggedIn = true;
-        res.sendStatus(200);
+router.post(
+    '/',
+    passport.authenticate('local', {
+      failureRedirect: '/',
+      successRedirect: '/',
+    }),
+    (req, res) => {
+      console.log(req.body.username);
     }
-    else {
-        res.sendStatus(401);
+  );
+
+  router.get('/',(req, res) => {
+     res.render('index.ejs');
     }
-});
+  );
+
+  
 
 module.exports = router;

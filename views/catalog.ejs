@@ -2,7 +2,7 @@
 <head>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/styles.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/styles.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,13 +11,13 @@
     var index = 0;
 
   
-   $(document).ready(getFlowers);
+  $(document).ready(getFlowers);
    function getFlowers() {
       $.ajax({
       type: 'GET',
       url: 'flowers',
       success: function(data) {
-        $.each(data, function(i, f) { 
+        $.each(JSON.parse(data), function(i, f) { 
           $.get("/flowers?flowerName=" + f.name, function (result) {
             $("<div class='item'><img  src='flowers?img=" + f.name + "' alt='Graduation Image'></div>").appendTo("#indexCarousel .carousel-inner");
             $("<li data-target='#indexCarousel' data-slide-to='" + index++ + "'></li>").appendTo('#indexCarousel .carousel-indicators');
